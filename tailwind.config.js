@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,jsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       colors: {
@@ -11,7 +8,7 @@ export default {
         secondary: "#FF9800",
         accent: "#D32F2F",
         success: "#4CAF50",
-        warning: "#FFC107", 
+        warning: "#FFC107",
         error: "#F44336",
       },
     },
@@ -20,4 +17,4 @@ export default {
   daisyui: {
     themes: ["light", "dark"],
   },
-}
+};
