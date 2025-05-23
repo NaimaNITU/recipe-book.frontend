@@ -32,7 +32,7 @@ const AllRecipes = () => {
     const fetchRecipes = async () => {
       try {
         const response = await fetch(
-          `https://recipe-book-back-end-alpha.vercel.app/recipes`
+          `${import.meta.env.VITE_API_BASE_URL}/recipes`
         );
         const data = await response.json();
         setRecipes(data);

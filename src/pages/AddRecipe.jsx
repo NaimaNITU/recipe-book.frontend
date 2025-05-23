@@ -29,7 +29,7 @@ const AddRecipe = () => {
       };
 
       const response = await fetch(
-        `https://recipe-book-back-end-alpha.vercel.app/recipes`,
+        `${import.meta.env.VITE_API_BASE_URL}/recipes`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
