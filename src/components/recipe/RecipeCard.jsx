@@ -23,7 +23,7 @@ const RecipeCard = ({ recipe, onLike }) => {
 
     try {
       setIsLiking(true);
-      await onLike(recipe.id);
+      await onLike(recipe._id);
     } catch (error) {
       toast.error("Failed to like recipe");
     } finally {
@@ -31,15 +31,17 @@ const RecipeCard = ({ recipe, onLike }) => {
     }
   };
 
+  console.log(recipe, "All recipe data");
+
   return (
     <div className="card card-hover bg-white dark:bg-gray-800 shadow-md overflow-hidden">
       <figure className="relative h-48">
         <img
           src={
-            recipe.image ||
+            recipe?.image ||
             "https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg"
           }
-          alt={recipe.title}
+          alt={recipe?.title}
           className="w-full h-full object-cover"
         />
         <button
@@ -57,24 +59,24 @@ const RecipeCard = ({ recipe, onLike }) => {
       </figure>
       <div className="card-body p-4">
         <h2 className="card-title text-xl font-bold text-gray-900 dark:text-white mb-2">
-          {recipe.title}
+          {recipe?.title}
         </h2>
         <div className="flex items-center gap-2 mb-2">
-          <span className="badge badge-outline">{recipe.cuisineType}</span>
+          <span className="badge badge-outline">{recipe?.cuisineType}</span>
           <span className="badge badge-outline">
-            {recipe.preparationTime} min
+            {recipe?.preparationTime} min
           </span>
         </div>
         <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400 mb-4">
           <FiHeart className="text-accent" size={16} />
-          <span>{recipe.likeCount} likes</span>
+          <span>{recipe?.likeCount} likes</span>
         </div>
         <div className="card-actions">
           <Link
-            to={`/recipe/${recipe.id}`}
+            to={`/recipe/${recipe._id}`}
             className="btn btn-primary btn-sm w-full"
           >
-            See Details
+            View Details
           </Link>
         </div>
       </div>
