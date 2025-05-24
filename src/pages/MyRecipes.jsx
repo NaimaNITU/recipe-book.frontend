@@ -19,7 +19,9 @@ const MyRecipes = () => {
 
     const fetchRecipes = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/recipes`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch recipes");
         }
