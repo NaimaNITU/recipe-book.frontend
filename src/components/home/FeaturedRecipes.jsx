@@ -14,9 +14,6 @@ const FeaturedRecipes = ({ recipes, onLike }) => {
               Most liked recipes from our community
             </p>
           </div>
-          <Link to="/all-recipes" className="btn btn-primary mt-4 sm:mt-0">
-            See All Recipes
-          </Link>
         </div>
 
         <RecipeList
@@ -24,6 +21,11 @@ const FeaturedRecipes = ({ recipes, onLike }) => {
           onLike={onLike}
           emptyMessage="No featured recipes yet. Be the first to add one!"
         />
+        <div className="flex justify-center items-center my-8">
+          <Link to="/all-recipes" className="btn btn-primary mt-4 sm:mt-0">
+            See All Recipes
+          </Link>
+        </div>
       </div>
     </section>
   );

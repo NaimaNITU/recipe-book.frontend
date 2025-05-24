@@ -47,7 +47,7 @@ const RecipeCard = ({ recipe, onLike }) => {
           <button
             onClick={handleLike}
             disabled={isLiking}
-            className="absolute top-2 right-2 p-2 bg-white dark:bg-gray-900 rounded-full shadow-md"
+            className="absolute top-2 right-2 p-2 bg-white hover:bg-red-500 hover:text-white dark:bg-gray-900 rounded-full shadow-md"
           >
             <FiHeart
               className={`transition-colors ${
