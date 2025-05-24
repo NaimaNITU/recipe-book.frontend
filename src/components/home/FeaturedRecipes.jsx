@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import RecipeList from "../recipe/RecipeList";
+import RecipeList from "../recipe/TopRecipeList";
 
 const FeaturedRecipes = ({ recipes, onLike }) => {
   return (
