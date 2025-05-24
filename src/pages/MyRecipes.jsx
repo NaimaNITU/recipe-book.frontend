@@ -44,20 +44,31 @@ const MyRecipes = () => {
 
     try {
       setIsSubmitting(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/recipes/${currentRecipe._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-      // In a real app, this would be an API call to update the recipe
-      // For now, we'll just simulate a delay and update the state
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (!response.ok) {
+        throw new Error("Failed to update recipe");
+      }
 
+      const updatedRecipe = await response.json();
       const updatedRecipes = myRecipes.map((recipe) =>
-        recipe._id === currentRecipe._id ? { ...recipe, ...formData } : recipe
+        recipe._id === currentRecipe._id ? updatedRecipe : recipe
       );
 
       setMyRecipes(updatedRecipes);
       toast.success("Recipe updated successfully!");
       setIsEditModalOpen(false);
     } catch (error) {
-      toast.error("Failed to update recipe");
+      toast.error(error.message || "Failed to update recipe");
     } finally {
       setIsSubmitting(false);
     }
@@ -67,17 +78,24 @@ const MyRecipes = () => {
     if (!window.confirm("Are you sure you want to delete this recipe?")) return;
 
     try {
-      // In a real app, this would be an API call to delete the recipe
-      // For now, we'll just simulate a delay and update the state
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/recipes/${recipeId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete recipe");
+      }
 
       const updatedRecipes = myRecipes.filter(
-        (recipe) => recipe.id !== recipeId
+        (recipe) => recipe._id !== recipeId
       );
       setMyRecipes(updatedRecipes);
       toast.success("Recipe deleted successfully!");
     } catch (error) {
-      toast.error("Failed to delete recipe");
+      toast.error(error.message || "Failed to delete recipe");
     }
   };
 
@@ -96,7 +114,7 @@ const MyRecipes = () => {
         {myRecipes.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 text-center">
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              You haven't added any recipes yet.
+              You have not added any recipes yet.
             </p>
             <a href="/add-recipe" className="btn btn-primary">
               Add Your First Recipe
@@ -133,7 +151,7 @@ const MyRecipes = () => {
                           <FiEdit2 size={18} />
                         </button>
                         <button
-                          onClick={() => handleDelete(recipe.id)}
+                          onClick={() => handleDelete(recipe._id)}
                           className="btn btn-sm btn-circle btn-ghost text-error"
                         >
                           <FiTrash2 size={18} />
