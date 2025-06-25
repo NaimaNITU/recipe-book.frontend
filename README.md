@@ -6,7 +6,8 @@
 
 
 ## 📸 Screenshot
-![App Screenshot](public/screenshot1.png)
+![App Screenshot](public/Screenshot1.png)
+![App Screenshot](public/Screenshot2.png)
 
 
 ## 🛠️ Technologies Used
