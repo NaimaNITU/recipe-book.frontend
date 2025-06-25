@@ -6,8 +6,7 @@
 
 
 ## 📸 Screenshot
-
-![Recipe Book App Preview](https://via.placeholder.com/1000x600?text=Add+your+screenshot+URL+here)
+![App Screenshot](public/screenshot1.png)
 
 
 ## 🛠️ Technologies Used
