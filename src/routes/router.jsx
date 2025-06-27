@@ -12,6 +12,7 @@ import RecipeDetails from "../pages/RecipeDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
+import About from "../pages/About";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       },
       { path: "*", element: <NotFound /> },
     ],
+  },
+  {
+    path: "/about",
+    element: <About></About>,
   },
 ]);
 
