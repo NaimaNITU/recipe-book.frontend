@@ -13,6 +13,11 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import About from "../pages/About";
+import DashboardLayout from "../pages/Dashboard/DashboardLayout";
+import Overview from "../pages/Dashboard/Overview";
+import AllItems from "../pages/Dashboard/AllItems";
+import AddItem from "../pages/Dashboard/AddItem";
+import MyItems from "../pages/Dashboard/MyItems";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +64,20 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <About></About>,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      { index: true, element: <Overview /> },
+      { path: "all-items", element: <AllItems /> },
+      { path: "add-item", element: <AddItem /> },
+      { path: "my-items", element: <MyItems /> },
+    ],
   },
 ]);
 

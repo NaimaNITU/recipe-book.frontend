@@ -40,16 +40,6 @@ const Navbar = () => {
             Home
           </NavLink>
           <NavLink
-            to="/all-recipes"
-            className={({ isActive }) =>
-              isActive
-                ? "text-primary font-medium"
-                : "text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
-            }
-          >
-            All Recipes
-          </NavLink>
-          <NavLink
             to="/about"
             className={({ isActive }) =>
               isActive
@@ -59,8 +49,30 @@ const Navbar = () => {
           >
             About Us
           </NavLink>
+          <NavLink
+            to="/all-recipes"
+            className={({ isActive }) =>
+              isActive
+                ? "text-primary font-medium"
+                : "text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+            }
+          >
+            All Recipes
+          </NavLink>
+
           {user && (
             <>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-primary font-medium"
+                    : "text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+                }
+              >
+                DashBoard
+              </NavLink>
+
               <NavLink
                 to="/add-recipe"
                 className={({ isActive }) =>
