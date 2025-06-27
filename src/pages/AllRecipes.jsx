@@ -24,6 +24,7 @@ const AllRecipes = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [selectedCuisine, setSelectedCuisine] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("default");
 
   const categoryParam = searchParams.get("category");
 
@@ -54,7 +55,7 @@ const AllRecipes = () => {
     fetchRecipes();
   }, [categoryParam]);
 
-  // Re-filter on cuisine or searchTerm change
+  // Filter & Sort
   useEffect(() => {
     let result = [...recipes];
 
@@ -80,8 +81,15 @@ const AllRecipes = () => {
       );
     }
 
+    // Sort by title
+    if (sortOrder === "asc") {
+      result.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortOrder === "desc") {
+      result.sort((a, b) => b.title.localeCompare(a.title));
+    }
+
     setFilteredRecipes(result);
-  }, [selectedCuisine, searchTerm, recipes, categoryParam]);
+  }, [selectedCuisine, searchTerm, sortOrder, recipes, categoryParam]);
 
   const handleCuisineChange = (cuisine) => {
     setSelectedCuisine(cuisine);
@@ -93,7 +101,7 @@ const AllRecipes = () => {
 
   const handleLike = async (recipeId) => {
     try {
-      // This demo only updates the UI (not real DB update)
+      // Demo-like logic
       setRecipes((prev) =>
         prev.map((r) =>
           r._id === recipeId ? { ...r, likeCount: r.likeCount + 1 } : r
@@ -119,9 +127,11 @@ const AllRecipes = () => {
           {categoryParam ? `${categoryParam} Recipes` : "All Recipes"}
         </h1>
 
+        {/* FILTER BAR */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 mb-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <form onSubmit={handleSearch} className="relative w-full md:w-auto">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 flex-wrap">
+            {/* Left: Search */}
+            <form onSubmit={handleSearch} className="relative w-full md:w-1/3">
               <input
                 type="text"
                 value={searchTerm}
@@ -137,25 +147,46 @@ const AllRecipes = () => {
               </button>
             </form>
 
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                Filter by cuisine:
-              </span>
-              <select
-                value={selectedCuisine}
-                onChange={(e) => handleCuisineChange(e.target.value)}
-                className="select select-bordered"
-              >
-                {cuisineTypes.map((cuisine) => (
-                  <option key={cuisine} value={cuisine}>
-                    {cuisine}
-                  </option>
-                ))}
-              </select>
+            {/* Right: Sort + Cuisine Filter */}
+            <div className="flex flex-wrap md:flex-nowrap items-center gap-4">
+              {/* Sort Dropdown */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Sort by:
+                </span>
+                <select
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value)}
+                  className="select select-bordered"
+                >
+                  <option value="default">Default</option>
+                  <option value="asc">Title (A–Z)</option>
+                  <option value="desc">Title (Z–A)</option>
+                </select>
+              </div>
+
+              {/* Cuisine Dropdown */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Filter by cuisine:
+                </span>
+                <select
+                  value={selectedCuisine}
+                  onChange={(e) => handleCuisineChange(e.target.value)}
+                  className="select select-bordered"
+                >
+                  {cuisineTypes.map((cuisine) => (
+                    <option key={cuisine} value={cuisine}>
+                      {cuisine}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Recipe Grid */}
         <RecipeList
           recipes={filteredRecipes}
           onLike={(id) => handleLike(id)}
