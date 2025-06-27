@@ -11,9 +11,6 @@ const MyRecipes = () => {
   const [currentRecipe, setCurrentRecipe] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  console.log(user, "User data");
-  console.log(myRecipes, "My recipes data");
-
   useEffect(() => {
     if (!user) return;
 
@@ -177,13 +174,16 @@ const MyRecipes = () => {
                           Ingredients
                         </h3>
                         <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
-                          {recipe.ingredients
+                          {(recipe.ingredients || [])
                             .slice(0, 5)
                             .map((ingredient, index) => (
                               <li key={index}>{ingredient}</li>
                             ))}
-                          {recipe.ingredients.length > 5 && (
-                            <li>...and {recipe.ingredients.length - 5} more</li>
+                          {(recipe.ingredients || []).length > 5 && (
+                            <li>
+                              ...and {(recipe.ingredients || []).length - 5}{" "}
+                              more
+                            </li>
                           )}
                         </ul>
                       </div>
@@ -193,16 +193,17 @@ const MyRecipes = () => {
                           Instructions
                         </h3>
                         <ul className="list-decimal list-inside text-gray-700 dark:text-gray-300">
-                          {recipe.instructions
+                          {(recipe.instructions || [])
                             .slice(0, 3)
                             .map((instruction, index) => (
                               <li key={index} className="truncate">
                                 {instruction}
                               </li>
                             ))}
-                          {recipe.instructions.length > 3 && (
+                          {(recipe.instructions || []).length > 3 && (
                             <li>
-                              ...and {recipe.instructions.length - 3} more steps
+                              ...and {(recipe.instructions || []).length - 3}{" "}
+                              more steps
                             </li>
                           )}
                         </ul>
@@ -214,7 +215,7 @@ const MyRecipes = () => {
                         Categories
                       </h3>
                       <div className="flex flex-wrap gap-2">
-                        {recipe.categories.map((category) => (
+                        {(recipe.categories || []).map((category) => (
                           <span
                             key={category}
                             className="badge badge-primary badge-outline"
