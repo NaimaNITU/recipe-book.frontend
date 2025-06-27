@@ -4,6 +4,7 @@ import FeaturedRecipes from "../components/home/FeaturedRecipes";
 import Categories from "../components/home/Categories";
 import CommunitySection from "../components/home/CommunitySection";
 import toast from "react-hot-toast";
+import NewsletterCarousel from "../components/home/NewsletterCarousel";
 
 const Home = () => {
   const [featuredRecipes, setFeaturedRecipes] = useState([]);
@@ -61,6 +62,7 @@ const Home = () => {
       <FeaturedRecipes recipes={featuredRecipes} onLike={handleLike} />
       <Categories />
       <CommunitySection />
+      <NewsletterCarousel />
     </div>
   );
 };
